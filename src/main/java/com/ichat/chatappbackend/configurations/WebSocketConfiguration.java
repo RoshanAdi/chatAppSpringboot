@@ -1,6 +1,6 @@
-package com.ichat.chatappbackend.configuration;
+package com.ichat.chatappbackend.configurations;
 
-import com.ichat.chatappbackend.handler.ChatWebSocketHandler;
+import com.ichat.chatappbackend.handlers.ChatWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
@@ -13,14 +13,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfiguration implements WebSocketConfigurer {
 
     private final static String CHAT_ENDPOINT = "/chat";
-    private final static String LOGIN = "/login";
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
         webSocketHandlerRegistry.addHandler(getChatWebSocketHandler(), CHAT_ENDPOINT)
                 .setAllowedOrigins("*");
-        webSocketHandlerRegistry.addHandler(getChatWebSocketHandler(), LOGIN)
-                .setAllowedOrigins("*");
+
     }
 
     @Bean
