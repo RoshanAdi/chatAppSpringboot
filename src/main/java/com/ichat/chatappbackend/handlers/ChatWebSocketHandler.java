@@ -22,13 +22,13 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     }
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println(session.getId());
+
         idToActiveSession.put(session.getId(), session);
     }
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         JSONObject obj = new JSONObject(message.getPayload());
-        System.out.println("showing obj = "+obj);
+
 
         if(Objects.equals(obj.get("senderId").toString(), "l4231rfd2384if9")){ // check for the first msg receive when joining someone(the nick name)
           session.sendMessage(new TextMessage(message.getPayload().replace("l4231rfd2384if9",session.getId()))); //user "joined" msg to the new user
@@ -41,7 +41,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
                 otherSession.getValue().sendMessage(new TextMessage(message.getPayload()));
             }}
         else if (!(Objects.equals(obj.get("recieverId").toString(), ""))) {  //catching private msgs
-            System.out.println("printing obj = "+obj.toString());
+
             session.sendMessage(new TextMessage(message.getPayload()));
 idToActiveSession.get(obj.get("recieverId")).sendMessage(new TextMessage(message.getPayload()));
         }
@@ -49,7 +49,7 @@ idToActiveSession.get(obj.get("recieverId")).sendMessage(new TextMessage(message
         else {  //public chat msgs
         for (Map.Entry<String, WebSocketSession> otherSession : idToActiveSession.entrySet()) {
             otherSession.getValue().sendMessage(new TextMessage(message.getPayload()));
-        }} System.out.println(message.getPayload());
+        }}
 
         }
     @Override
