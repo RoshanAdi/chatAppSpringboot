@@ -1,7 +1,6 @@
 package com.ichat.chatappbackend.handlers;
 
 
-import com.ichat.chatappbackend.Dtos.PayloadDto;
 import org.json.JSONObject;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
